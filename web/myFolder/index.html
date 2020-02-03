@@ -44,6 +44,11 @@
         <script>
 
             "use strict";
+            
+            function formatCurrency(num) {
+                var myNum = Number(num);
+                return myNum.toLocaleString("en-US", {style: "currency", currency: "USD", minimumFractionDigits: 2});
+            }
 
             ajax3({
                 url: "json/users.json",
@@ -68,14 +73,21 @@
                 errorEle: document.getElementById("carsSlideId")
             });
             
+            
+            
             function successCars(carsList){
                 console.log(carsList);
+                
+                for (var i = 0; i < carsList.length; i++) {
+                   carsList[i].price = formatCurrency(carsList[i].price.replace("$","").replace(",",""));
+                   carsList[i].caption = carsList[i].make + " " + carsList[i].price;
+                }
                 
                 var ss = MakeSlideShow({
                     slideShowEle: document.getElementById("carsSlideId"),
                     objList: carsList,
                     picPropName: "image",
-                    captionPropName: "condition" // TODO
+                    captionPropName: "caption"
                 });
             }
 
