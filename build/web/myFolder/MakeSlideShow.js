@@ -15,9 +15,10 @@ function MakeSlideShow(params) {
         alert("MakeSlideShow requires a parameter object with 'slideShowEle' property (DOM object where slide show is to be created).");
         return;
     }
-    if (!params.objList || !params.objList[0] || !params.picPropName) {
+    if (!params.objList || !params.objList[0] || !params.picPropName || !params.captionPropName) {
         alert("MakeSlideShow requires a parameter object with 'objList' property (array of objects)" +
-                " and each object must have an image file name specified by property 'picPropName'");
+                " and each object must have an image file name specified by property 'picPropName'" +
+                " along with a caption specified by the property 'captionPropName");
         return;
     }
 
@@ -27,6 +28,7 @@ function MakeSlideShow(params) {
 
     var objList = params.objList;
     var picPropName = params.picPropName;
+    var captionPropName = params.captionPropName;
 
     // add a div that will hold the image
     var div = document.createElement("div");
@@ -35,6 +37,10 @@ function MakeSlideShow(params) {
     // add image into the div & set the image's src attribute to the 1st picture in the list
     var myImage = document.createElement("img");
     div.append(myImage);
+    
+    // add caption under the image
+    var myCaption = document.createElement("div");
+    slideShowEle.appendChild(myCaption);
 
     // add back button under the image (and space between buttons)
     var backButton = document.createElement("button");
@@ -87,6 +93,8 @@ function MakeSlideShow(params) {
     function updatePic() {
         var obj = objList[picNum];
         myImage.src = obj[picPropName];
+        myCaption.innerHTML = obj[captionPropName];
+        console.log(obj[captionPropName]);
     }
 
     return slideShowEle;
