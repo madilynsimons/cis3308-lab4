@@ -32,7 +32,10 @@
             from the image file names in the objects. 
         </p>
 
-        <div id="slideId">
+        <div id="usersSlideId">
+        </div>
+        
+        <div id="carsSlideId">
         </div>
 
         <script src="MakeSlideShow.js"></script>
@@ -44,20 +47,38 @@
 
             ajax3({
                 url: "json/users.json",
-                successFn: success,
-                errorEle: document.getElementById("slideId")
+                successFn: successUsers,
+                errorEle: document.getElementById("usersSlideId")
             });
 
-            function success(userList) {
+            function successUsers(userList) {
                 console.log(userList);
 
                 var ss = MakeSlideShow({
-                    slideShowEle: document.getElementById("slideId"), // id in which to render slideshow,
+                    slideShowEle: document.getElementById("usersSlideId"), // id in which to render slideshow,
                     objList: userList, // array of objects with image and caption
                     picPropName: "image",
                     captionPropName: "userEmail"
                 });
             }
+            
+            ajax3({
+                url: "json/cars.json",
+                successFn: successCars,
+                errorEle: document.getElementById("carsSlideId")
+            });
+            
+            function successCars(carsList){
+                console.log(carsList);
+                
+                var ss = MakeSlideShow({
+                    slideShowEle: document.getElementById("carsSlideId"),
+                    objList: carsList,
+                    picPropName: "image",
+                    captionPropName: "condition" // TODO
+                });
+            }
+
 
         </script>
     </body>
