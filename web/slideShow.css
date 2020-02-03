@@ -1,6 +1,9 @@
 .slideShow{
     text-align:center;
     font-weight:bold; 
+    width: 46%;
+    margin: 2%;
+    float: left;
 }
 
 .slideShow img { /* style images that are inside of class slideShow */
@@ -22,4 +25,8 @@
 
 .slideShow button:hover {
     background-color: #CCCCCC;
+}
+
+.slideShow:after{
+    clear: both;
 }
